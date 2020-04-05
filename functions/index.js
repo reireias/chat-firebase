@@ -23,3 +23,18 @@ exports.deleteUserData = functions.auth.user().onDelete((user) => {
   db.collection('users').doc(user.uid).delete()
   return 0
 })
+
+exports.createRoom = functions.firestore
+  .document('users/{userId}/rooms/{roomId}')
+  .onCreate((snap, context) => {
+    const data = snap.data()
+    const db = admin.firestore()
+    return db.collection('rooms').doc(context.params.roomId).set(data)
+  })
+
+exports.deleteRoom = functions.firestore
+  .document('users/{userId}/rooms/{roomId}')
+  .onDelete((_, context) => {
+    const db = admin.firestore()
+    return db.collection('rooms').doc(context.params.roomId).delete()
+  })
