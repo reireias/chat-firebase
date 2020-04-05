@@ -8,6 +8,8 @@ export const state = () => {
     loading: true,
     user: null,
     rooms: [],
+    room: null,
+    messages: [],
   }
 }
 
@@ -51,6 +53,26 @@ export const actions = {
       db.collection('users').doc(payload.uid).collection('rooms')
     )
   }),
+  bindRoom: firestoreAction(({ bindFirestoreRef }, payload) => {
+    return bindFirestoreRef('room', db.collection('rooms').doc(payload.id))
+  }),
+  bindMessages: firestoreAction(({ bindFirestoreRef }, payload) => {
+    return bindFirestoreRef(
+      'messages',
+      db.collection('rooms').doc(payload.id).collection('messages')
+    )
+  }),
+  addMessage(_, payload) {
+    const message = {
+      author: payload.uid,
+      authorIcon: payload.authorIcon,
+      text: payload.text,
+    }
+    db.collection('rooms')
+      .doc(payload.roomId)
+      .collection('messages')
+      .add(message)
+  },
 }
 
 export const getters = {
@@ -65,5 +87,11 @@ export const getters = {
   },
   rooms(state) {
     return state.rooms
+  },
+  room(state) {
+    return state.room
+  },
+  messages(state) {
+    return state.messages
   },
 }

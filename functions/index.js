@@ -35,6 +35,14 @@ exports.createRoom = functions.firestore
 exports.deleteRoom = functions.firestore
   .document('users/{userId}/rooms/{roomId}')
   .onDelete((_, context) => {
-    const db = admin.firestore()
-    return db.collection('rooms').doc(context.params.roomId).delete()
+    // const db = admin.firestore()
+    // return db.collection('rooms').doc(context.params.roomId).delete()
+    const client = require('firebase-tools')
+    const path = `rooms/${context.params.roomId}`
+    return client.firestore.delete(path, {
+      project: process.env.GCLOUD_PROJECT,
+      recursive: true,
+      yes: true,
+      token: functions.config().fb.token,
+    })
   })

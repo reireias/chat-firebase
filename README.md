@@ -20,3 +20,10 @@ $ yarn generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## Setup for firebase-tools on functions
+
+```console
+$ firebase login:ci
+$ firebase functions:config:set fb.token="YOUR_TOKEN_HERE"
+```

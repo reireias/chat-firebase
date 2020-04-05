@@ -3,7 +3,8 @@
     <v-toolbar flat max-height="64">
       <v-toolbar-title>Example Chat Application with Firebase</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn outlined @click="logout">logout</v-btn>
+      <v-btn class="toolbar-button" outlined nuxt to="/">top</v-btn>
+      <v-btn class="toolbar-button" outlined @click="logout">logout</v-btn>
     </v-toolbar>
     <v-content>
       <v-container>
@@ -24,3 +25,10 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.toolbar-button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+</style>
