@@ -1,8 +1,16 @@
 <template>
-  <div>
-    <h1>TODO: login</h1>
-    <div id="firebase-auth-container"></div>
-  </div>
+  <v-container>
+    <v-row justify="center">
+      <v-col>
+        <div class="display-3" style="text-align: center;">login</div>
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col>
+        <div id="firebase-auth-container"></div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

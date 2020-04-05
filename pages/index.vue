@@ -1,18 +1,32 @@
 <template>
-  <div>
-    <h1>TODO</h1>
-    <v-btn @click="logout">ログアウト</v-btn>
-  </div>
+  <v-container class="index-container">
+    <v-row justify="center">
+      <v-col>
+        <div class="display-3 index-title">Create Room</div>
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col>
+        <center>TODO</center>
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col>
+        <div class="display-3 index-title">Join a Room</div>
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col>
+        <center>TODO</center>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
-<script>
-import firebase from '@/plugins/firebase'
-
-export default {
-  methods: {
-    logout() {
-      firebase.auth().signOut()
-    }
+<style lang="scss">
+.index-container {
+  .index-title {
+    text-align: center;
   }
 }
-</script>
+</style>
