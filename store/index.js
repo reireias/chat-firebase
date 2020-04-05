@@ -1,9 +1,13 @@
-import { vuexfireMutations } from 'vuexfire'
+import { vuexfireMutations, firestoreAction } from 'vuexfire'
+import firebase from '@/plugins/firebase'
+
+const db = firebase.firestore()
 
 export const state = () => {
   return {
     loading: true,
     user: null,
+    rooms: [],
   }
 }
 
@@ -27,6 +31,26 @@ export const actions = {
   unsetUser({ commit }) {
     commit('setUser', null)
   },
+  addRoom(_, payload) {
+    const room = {
+      name: payload.name,
+      owner: payload.uid,
+    }
+    db.collection('users').doc(payload.uid).collection('rooms').add(room)
+  },
+  deleteRoom(_, payload) {
+    db.collection('users')
+      .doc(payload.uid)
+      .collection('rooms')
+      .doc(payload.id)
+      .delete()
+  },
+  bindRooms: firestoreAction(({ bindFirestoreRef }, payload) => {
+    return bindFirestoreRef(
+      'rooms',
+      db.collection('users').doc(payload.uid).collection('rooms')
+    )
+  }),
 }
 
 export const getters = {
@@ -38,5 +62,8 @@ export const getters = {
   },
   loading(state) {
     return state.loading
+  },
+  rooms(state) {
+    return state.rooms
   },
 }
