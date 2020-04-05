@@ -25,11 +25,11 @@ export default {
     const config = {
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.GithubAuthProvider.PROVIDER_ID
+        firebase.auth.GithubAuthProvider.PROVIDER_ID,
       ],
-      signInSuccessUrl: '/'
+      signInSuccessUrl: '/',
     }
     ui.start('#firebase-auth-container', config)
-  }
+  },
 }
 </script>

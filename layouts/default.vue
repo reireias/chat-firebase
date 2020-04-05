@@ -20,7 +20,7 @@ export default {
   methods: {
     logout() {
       firebase.auth().signOut()
-    }
-  }
+    },
+  },
 }
 </script>
