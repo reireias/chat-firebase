@@ -1,11 +1,11 @@
 <template>
   <v-app>
-    <v-toolbar flat max-height="64">
+    <v-app-bar app fixed max-height="64">
       <v-toolbar-title>Example Chat Application with Firebase</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn class="toolbar-button" outlined nuxt to="/">top</v-btn>
       <v-btn class="toolbar-button" outlined @click="logout">logout</v-btn>
-    </v-toolbar>
+    </v-app-bar>
     <v-content>
       <v-container>
         <nuxt />

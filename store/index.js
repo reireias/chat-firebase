@@ -59,7 +59,11 @@ export const actions = {
   bindMessages: firestoreAction(({ bindFirestoreRef }, payload) => {
     return bindFirestoreRef(
       'messages',
-      db.collection('rooms').doc(payload.id).collection('messages')
+      db
+        .collection('rooms')
+        .doc(payload.id)
+        .collection('messages')
+        .orderBy('createdAt', 'asc')
     )
   }),
   addMessage(_, payload) {
@@ -67,6 +71,7 @@ export const actions = {
       author: payload.uid,
       authorIcon: payload.authorIcon,
       text: payload.text,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     }
     db.collection('rooms')
       .doc(payload.roomId)

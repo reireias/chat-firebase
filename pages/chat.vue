@@ -1,26 +1,57 @@
 <template>
-  <v-container>
-    <v-row>
+  <v-container class="chat-page">
+    <v-row justify="center">
       <v-col>
-        <div v-if="room">Room: {{ room.name }}</div>
+        <center>
+          <div v-if="room" class="display-1">Room: {{ room.name }}</div>
+        </center>
       </v-col>
     </v-row>
-    <v-row v-for="message in messages" :key="message.id">
-      <v-col v-text="message.text"></v-col>
-    </v-row>
-    <v-row justify="center" align="center">
-      <v-col cols="2">
-        <v-text-field v-model="text" label="Message"></v-text-field>
+    <v-row v-for="message in messages" :key="message.id" justify="center">
+      <v-col
+        :class="user.uid == message.author ? 'my-message' : 'other-message'"
+        cols="5"
+      >
+        <v-avatar v-if="user.uid != message.author">
+          <img :src="message.authorIcon" />
+        </v-avatar>
+        <v-card
+          class="message-card"
+          :color="user.uid == message.author ? '#AED581' : 'white'"
+        >
+          <v-card-title v-text="message.text"></v-card-title>
+        </v-card>
+        <v-avatar v-if="user.uid == message.author">
+          <img :src="message.authorIcon" />
+        </v-avatar>
       </v-col>
-      <v-col cols="2">
-        <v-btn color="primary" :disabled="!text" @click="onPost">post</v-btn>
-      </v-col>
     </v-row>
+    <v-app-bar app bottom fixed height="80">
+      <v-container style="padding: 0; margine: 0;">
+        <v-row justify="center" align="center">
+          <v-col cols="4">
+            <v-text-field
+              v-model="text"
+              solo
+              hide-details
+              placeholder="message"
+              @keyup.enter="onPost"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="1">
+            <v-btn fab elevation="3" color="primary" @click="onPost">
+              <v-icon>mdi-send</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-app-bar>
   </v-container>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import moment from 'moment'
 
 export default {
   data() {
@@ -37,15 +68,40 @@ export default {
   },
   methods: {
     onPost() {
-      this.addMessage({
-        uid: this.user.uid,
-        authorIcon: this.user.photoURL,
-        text: this.text,
-        roomId: this.$route.query.roomId,
-      })
-      this.text = null
+      if (this.text) {
+        this.addMessage({
+          uid: this.user.uid,
+          authorIcon: this.user.photoURL,
+          text: this.text,
+          roomId: this.$route.query.roomId,
+        })
+        this.text = null
+      }
+    },
+    format(timestamp) {
+      return moment(timestamp.seconds * 1000).format('YYYY/MM/DD HH:mm:ss')
     },
     ...mapActions(['bindRoom', 'bindMessages', 'addMessage']),
   },
 }
 </script>
+
+<style lang="scss">
+.chat-page {
+  .my-message {
+    display: flex;
+    align-items: center;
+    .message-card {
+      margin-left: auto;
+    }
+  }
+  .other-message {
+    display: flex;
+    align-items: center;
+  }
+  .message-card {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+</style>
