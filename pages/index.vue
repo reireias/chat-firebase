@@ -25,11 +25,6 @@
         <div class="display-3 index-title">Join a Room</div>
       </v-col>
     </v-row>
-    <v-row justify="center">
-      <v-col>
-        <center>TODO</center>
-      </v-col>
-    </v-row>
     <v-row v-if="loading" justify="center" align="center">
       <v-col class="index-content">
         <v-progress-circular
@@ -42,6 +37,11 @@
     <v-row justify="center">
       <v-col cols="4">
         <v-list>
+          <v-list-item v-if="rooms.length == 0">
+            <v-list-item-subtitle class="text-center"
+              >no rooms</v-list-item-subtitle
+            >
+          </v-list-item>
           <v-list-item v-for="room in rooms" :key="room.name">
             <v-list-item-title
               class="display-1"
