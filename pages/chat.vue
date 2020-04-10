@@ -10,7 +10,9 @@
     <v-row v-for="message in messages" :key="message.id" justify="center">
       <v-col
         :class="user.uid == message.author ? 'my-message' : 'other-message'"
-        cols="5"
+        cols="12"
+        md="8"
+        xl="5"
       >
         <v-avatar v-if="user.uid != message.author">
           <img :src="message.authorIcon" />
@@ -29,7 +31,7 @@
     <v-app-bar app bottom fixed height="80">
       <v-container style="padding: 0; margine: 0;">
         <v-row justify="center" align="center">
-          <v-col cols="4">
+          <v-col cols="11" md="7" xl="4">
             <v-text-field
               v-model="text"
               solo
