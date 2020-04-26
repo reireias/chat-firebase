@@ -7,6 +7,12 @@
 - Text chat in room
 - Save chat message to storage
 
+## Chat Architecture
+![chat-architecture-firebase](https://user-images.githubusercontent.com/24800246/80309434-fe445700-880f-11ea-85ae-b10726c8fc24.png)
+
+## Authentication
+[Firebase Authentication](https://firebase.google.com/docs/auth)
+
 ## Build Setup
 
 ```bash
